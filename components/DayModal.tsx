@@ -59,13 +59,13 @@ export default function DayModal({ dateStr, entries, presets, onClose, onAddEntr
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in" onClick={onClose} />
 
       {/* Modal */}
-      <div className="relative w-full sm:max-w-lg bg-[#1a1d2e] border border-slate-700/60 rounded-t-3xl sm:rounded-2xl shadow-2xl animate-slide-up max-h-[90vh] flex flex-col">
+      <div className="relative w-full sm:max-w-lg rounded-t-3xl sm:rounded-2xl shadow-2xl animate-slide-modal max-h-[90vh] flex flex-col" style={{ background: '#13161f', border: '1px solid rgba(255,255,255,0.07)' }}>
         {/* Header */}
-        <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-slate-700/50">
+        <div className="flex items-center justify-between px-5 pt-5 pb-4" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
           <div className="flex items-center gap-3">
             {(view === 'add' || view === 'edit') && (
-              <button onClick={() => { setView('list'); setEditingEntry(null); }} className="text-slate-400 hover:text-slate-200 transition">
-                <ChevronLeft size={20} />
+              <button onClick={() => { setView('list'); setEditingEntry(null); }} className="w-8 h-8 flex items-center justify-center rounded-full text-slate-500 hover:text-slate-200 transition" style={{ background: 'rgba(255,255,255,0.04)' }}>
+                <ChevronLeft size={16} />
               </button>
             )}
             <div>
@@ -79,8 +79,8 @@ export default function DayModal({ dateStr, entries, presets, onClose, onAddEntr
               )}
             </div>
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-200 transition p-1">
-            <X size={20} />
+          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full text-slate-500 hover:text-slate-200 transition" style={{ background: 'rgba(255,255,255,0.04)' }}>
+            <X size={18} />
           </button>
         </div>
 
@@ -89,15 +89,15 @@ export default function DayModal({ dateStr, entries, presets, onClose, onAddEntr
           {view === 'list' ? (
             <div className="flex flex-col gap-3">
               {dayEntries.length === 0 ? (
-                <div className="text-center py-10">
-                  <p className="text-4xl mb-3">🫗</p>
-                  <p className="text-slate-400 text-sm">No drinks logged for this day.</p>
-                  <p className="text-slate-500 text-xs mt-1">Tap the button below to add one.</p>
+                <div className="text-center py-12">
+                  <p className="text-5xl mb-4 opacity-30">○</p>
+                  <p className="text-sm font-medium" style={{ color: '#475569' }}>Nothing logged</p>
+                  <p className="text-xs mt-1" style={{ color: '#334155' }}>Tap below to add a drink.</p>
                 </div>
               ) : (
                 <>
                   {dayEntries.map(entry => (
-                    <div key={entry.id} className="bg-slate-800/60 border border-slate-700/50 rounded-xl p-3.5 animate-slide-up">
+                    <div key={entry.id} className="rounded-xl p-3.5 animate-slide-up" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2">
@@ -139,9 +139,9 @@ export default function DayModal({ dateStr, entries, presets, onClose, onAddEntr
                     </div>
                   ))}
 
-                  <div className="flex items-center justify-between bg-indigo-950/40 border border-indigo-800/30 rounded-xl p-3 mt-1">
-                    <span className="text-slate-300 text-sm">Day total</span>
-                    <span className="text-indigo-300 font-bold text-lg">{dayTotal.toFixed(2)} std drinks</span>
+                  <div className="flex items-center justify-between rounded-xl p-3.5 mt-1" style={{ background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.15)' }}>
+                    <span className="text-xs font-medium" style={{ color: '#94a3b8' }}>Day total</span>
+                    <span className="font-bold text-base" style={{ color: '#a5b4fc' }}>{dayTotal.toFixed(2)} std</span>
                   </div>
                 </>
               )}
@@ -159,7 +159,7 @@ export default function DayModal({ dateStr, entries, presets, onClose, onAddEntr
 
         {/* Footer */}
         {view === 'list' && (
-          <div className="p-4 pb-safe border-t border-slate-700/50">
+          <div className="p-4 pb-safe" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
             <button
               onClick={() => setView('add')}
               className="w-full flex items-center justify-center gap-2 py-3.5 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-semibold rounded-xl glow-btn transition"

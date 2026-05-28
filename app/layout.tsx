@@ -13,12 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sip Tracker",
+  title: "Log",
   description: "Track your weekly alcohol intake with clarity.",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Sip Tracker",
+    title: "Log",
   },
 };
 
@@ -27,7 +27,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: "#111318",
+  themeColor: "#0c0e12",
 };
 
 export default function RootLayout({

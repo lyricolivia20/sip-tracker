@@ -113,21 +113,17 @@ export default function Home() {
   const todayStr = formatDate(new Date());
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#111318' }}>
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#0c0e12' }}>
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-slate-800/80" style={{ backgroundColor: '#111318ee', backdropFilter: 'blur(12px)' }}>
-        <div className="max-w-2xl mx-auto px-4 py-3.5 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center">
-              <span className="text-base">🥃</span>
-            </div>
-            <h1 className="text-lg font-bold text-slate-100 tracking-tight">Sip Tracker</h1>
-          </div>
+      <header className="sticky top-0 z-40" style={{ backgroundColor: '#0c0e12cc', backdropFilter: 'blur(24px)' }}>
+        <div className="max-w-2xl mx-auto px-5 pt-5 pb-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-500 hidden sm:block">
-              {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-            </span>
+            <div className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+            <span className="text-[13px] font-semibold tracking-tight text-slate-200">log</span>
           </div>
+          <span className="text-[11px] text-slate-600 tabular-nums">
+            {new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+          </span>
         </div>
       </header>
 
@@ -177,25 +173,25 @@ export default function Home() {
       </main>
 
       {/* Bottom Nav */}
-      <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-800/80 safe-bottom" style={{ backgroundColor: '#111318ee', backdropFilter: 'blur(12px)' }}>
-        <div className="max-w-2xl mx-auto px-2">
+      <nav className="fixed bottom-0 left-0 right-0 z-40 safe-bottom" style={{ backgroundColor: '#0c0e12e8', backdropFilter: 'blur(24px)', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+        <div className="max-w-2xl mx-auto px-4">
           <div className="flex items-center">
             {TAB_CONFIG.map(tab => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`relative flex-1 flex flex-col items-center gap-1 py-3 transition-all ${
+                className={`relative flex-1 flex flex-col items-center gap-1 py-3.5 transition-all ${
                   activeTab === tab.id
                     ? 'text-indigo-400'
-                    : 'text-slate-500 hover:text-slate-300'
+                    : 'text-slate-600 hover:text-slate-400'
                 }`}
               >
-                <span className={`transition-transform ${activeTab === tab.id ? 'scale-110' : ''}`}>
+                <span className={`transition-all duration-200 ${activeTab === tab.id ? 'scale-110' : ''}`}>
                   {tab.icon}
                 </span>
-                <span className="text-[10px] font-medium">{tab.label}</span>
+                <span className={`text-[10px] font-medium transition-all ${activeTab === tab.id ? 'opacity-100' : 'opacity-60'}`}>{tab.label}</span>
                 {activeTab === tab.id && (
-                  <div className="absolute bottom-0 w-8 h-0.5 bg-indigo-500 rounded-full" />
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-6 h-[2px] bg-indigo-500 rounded-full" />
                 )}
               </button>
             ))}
@@ -206,8 +202,8 @@ export default function Home() {
       {/* FAB - Add Drink */}
       <button
         onClick={() => setShowFabForm(true)}
-        style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 5rem)' }}
-        className="fixed right-5 sm:right-8 z-50 w-16 h-16 rounded-2xl bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white flex items-center justify-center shadow-lg glow-btn animate-pulse-glow transition"
+        style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 5.5rem)' }}
+        className="fixed right-5 sm:right-8 z-50 w-14 h-14 rounded-2xl bg-indigo-600 text-white flex items-center justify-center glow-btn animate-pulse-glow"
         aria-label="Add drink"
       >
         <Plus size={24} />

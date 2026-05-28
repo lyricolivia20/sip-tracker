@@ -56,65 +56,69 @@ export default function DrinkForm({ presets, initialDate, entry, onSave, onCance
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       {/* Preset Buttons */}
       <div>
-        <p className="text-xs text-slate-400 uppercase tracking-wider mb-2 font-medium">Quick Select</p>
+        <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: '#334155' }}>Quick Select</p>
         <div className="grid grid-cols-4 gap-2">
           {presets.map(preset => (
             <button
               key={preset.id}
               type="button"
               onClick={() => applyPreset(preset)}
-              className={`flex flex-col items-center gap-1 p-2 rounded-xl border transition-all text-center ${
-                selectedPreset === preset.id
-                  ? 'border-indigo-500 bg-indigo-500/20 text-indigo-300'
-                  : 'border-slate-700 bg-slate-800/60 text-slate-300 hover:border-slate-500 hover:bg-slate-700/60'
-              }`}
+              className="flex flex-col items-center gap-1.5 p-3 rounded-xl transition-all text-center active:scale-95"
+              style={{
+                background: selectedPreset === preset.id ? 'rgba(99,102,241,0.15)' : 'rgba(255,255,255,0.03)',
+                border: `1px solid ${selectedPreset === preset.id ? 'rgba(99,102,241,0.4)' : 'rgba(255,255,255,0.06)'}`,
+              }}
             >
               <span className="text-xl">{preset.icon}</span>
-              <span className="text-xs leading-tight">{preset.name}</span>
+              <span className="text-[10px] leading-tight" style={{ color: selectedPreset === preset.id ? '#a5b4fc' : '#94a3b8' }}>{preset.name}</span>
             </button>
           ))}
           <button
             type="button"
             onClick={() => { setSelectedPreset(null); setShowCustom(true); }}
-            className={`flex flex-col items-center gap-1 p-2 rounded-xl border transition-all text-center ${
-              showCustom && !selectedPreset
-                ? 'border-indigo-500 bg-indigo-500/20 text-indigo-300'
-                : 'border-slate-700 bg-slate-800/60 text-slate-400 hover:border-slate-500'
-            }`}
+            className="flex flex-col items-center gap-1.5 p-3 rounded-xl transition-all text-center active:scale-95"
+            style={{
+              background: showCustom && !selectedPreset ? 'rgba(99,102,241,0.15)' : 'rgba(255,255,255,0.03)',
+              border: `1px solid ${showCustom && !selectedPreset ? 'rgba(99,102,241,0.4)' : 'rgba(255,255,255,0.06)'}`,
+            }}
           >
             <span className="text-xl">✏️</span>
-            <span className="text-xs">Custom</span>
+            <span className="text-[10px]" style={{ color: showCustom && !selectedPreset ? '#a5b4fc' : '#64748b' }}>Custom</span>
           </button>
         </div>
       </div>
 
       {/* Name */}
       <div>
-        <label className="block text-xs text-slate-400 uppercase tracking-wider mb-1.5 font-medium">Drink Name</label>
+        <label className="block text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: '#334155' }}>Drink Name</label>
         <input
           type="text"
           value={name}
           onChange={e => setName(e.target.value)}
           placeholder="e.g. IPA, Margarita..."
-          className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2.5 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/30 transition"
+          className="w-full rounded-xl px-4 py-3 text-slate-100 placeholder:text-slate-600 focus:outline-none transition"
+          style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+          onFocus={e => (e.target.style.borderColor = 'rgba(99,102,241,0.5)')}
+          onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')}
         />
       </div>
 
       {/* Ounces / ABV / Quantity */}
       <div className="grid grid-cols-3 gap-3">
         <div>
-          <label className="block text-xs text-slate-400 uppercase tracking-wider mb-1.5 font-medium">Oz</label>
+          <label className="block text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: '#334155' }}>oz</label>
           <input
             type="number"
             value={ounces}
             onChange={e => setOunces(parseFloat(e.target.value) || 0)}
             min={0.5}
             step={0.5}
-            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-slate-100 focus:outline-none focus:border-indigo-500 transition text-center"
+            className="w-full rounded-xl px-3 py-3 text-slate-100 focus:outline-none transition text-center"
+            style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
           />
         </div>
         <div>
-          <label className="block text-xs text-slate-400 uppercase tracking-wider mb-1.5 font-medium">ABV %</label>
+          <label className="block text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: '#334155' }}>abv %</label>
           <input
             type="number"
             value={abv}
@@ -122,55 +126,59 @@ export default function DrinkForm({ presets, initialDate, entry, onSave, onCance
             min={0}
             max={100}
             step={0.1}
-            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-slate-100 focus:outline-none focus:border-indigo-500 transition text-center"
+            className="w-full rounded-xl px-3 py-3 text-slate-100 focus:outline-none transition text-center"
+            style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
           />
         </div>
         <div>
-          <label className="block text-xs text-slate-400 uppercase tracking-wider mb-1.5 font-medium">Qty</label>
+          <label className="block text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: '#334155' }}>qty</label>
           <input
             type="number"
             value={quantity}
             onChange={e => setQuantity(parseInt(e.target.value) || 1)}
             min={1}
             max={20}
-            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-slate-100 focus:outline-none focus:border-indigo-500 transition text-center"
+            className="w-full rounded-xl px-3 py-3 text-slate-100 focus:outline-none transition text-center"
+            style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
           />
         </div>
       </div>
 
       {/* Standard Drinks Preview */}
-      <div className="flex items-center justify-center bg-indigo-950/60 border border-indigo-800/50 rounded-xl py-3">
+      <div className="flex items-center justify-center rounded-2xl py-5" style={{ background: 'rgba(99,102,241,0.07)', border: '1px solid rgba(99,102,241,0.15)' }}>
         <div className="text-center">
-          <p className="text-3xl font-bold text-indigo-300">{standardDrinks.toFixed(2)}</p>
-          <p className="text-xs text-slate-400 mt-0.5">standard drinks</p>
+          <p className="text-[36px] font-bold tracking-tight leading-none" style={{ color: '#a5b4fc' }}>{standardDrinks.toFixed(2)}</p>
+          <p className="text-[10px] font-medium uppercase tracking-widest mt-2" style={{ color: '#4338ca' }}>standard drinks</p>
         </div>
       </div>
 
       {/* Date */}
       <div>
-        <label className="block text-xs text-slate-400 uppercase tracking-wider mb-1.5 font-medium">Date</label>
+        <label className="block text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: '#334155' }}>Date</label>
         <input
           type="date"
           value={date}
           onChange={e => setDate(e.target.value)}
-          className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none focus:border-indigo-500 transition [color-scheme:dark]"
+          className="w-full rounded-xl px-4 py-3 text-slate-100 focus:outline-none transition [color-scheme:dark]"
+          style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
         />
       </div>
 
       {/* Mood */}
       <div>
-        <label className="block text-xs text-slate-400 uppercase tracking-wider mb-2 font-medium">Mood / Trigger (optional)</label>
+        <label className="block text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: '#334155' }}>Mood (optional)</label>
         <div className="flex flex-wrap gap-2">
           {MOOD_TAGS.map(m => (
             <button
               key={m.value}
               type="button"
               onClick={() => setMood(mood === m.value ? '' : m.value)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs border transition-all ${
-                mood === m.value
-                  ? 'border-indigo-500 bg-indigo-500/20 text-indigo-300'
-                  : 'border-slate-700 bg-slate-800/60 text-slate-400 hover:border-slate-500'
-              }`}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs transition-all active:scale-95"
+              style={{
+                background: mood === m.value ? 'rgba(99,102,241,0.15)' : 'rgba(255,255,255,0.03)',
+                border: `1px solid ${mood === m.value ? 'rgba(99,102,241,0.4)' : 'rgba(255,255,255,0.07)'}`,
+                color: mood === m.value ? '#a5b4fc' : '#64748b',
+              }}
             >
               <span>{m.emoji}</span> {m.label}
             </button>
@@ -180,13 +188,14 @@ export default function DrinkForm({ presets, initialDate, entry, onSave, onCance
 
       {/* Notes */}
       <div>
-        <label className="block text-xs text-slate-400 uppercase tracking-wider mb-1.5 font-medium">Notes (optional)</label>
+        <label className="block text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: '#334155' }}>Notes (optional)</label>
         <textarea
           value={notes}
           onChange={e => setNotes(e.target.value)}
           rows={2}
-          placeholder="Any notes about this drink..."
-          className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2.5 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-indigo-500 transition resize-none"
+          placeholder="Any notes..."
+          className="w-full rounded-xl px-4 py-3 text-slate-100 placeholder:text-slate-600 focus:outline-none transition resize-none"
+          style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
         />
       </div>
 
@@ -195,7 +204,8 @@ export default function DrinkForm({ presets, initialDate, entry, onSave, onCance
         <button
           type="button"
           onClick={onCancel}
-          className="flex-1 py-3 rounded-xl border border-slate-700 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition font-medium"
+          className="flex-1 py-3 rounded-xl font-medium text-slate-500 hover:text-slate-300 transition active:scale-95"
+          style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}
         >
           Cancel
         </button>
