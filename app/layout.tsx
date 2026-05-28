@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -15,18 +15,19 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Sip Tracker",
   description: "Track your weekly alcohol intake with clarity.",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
-  themeColor: "#111318",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
     title: "Sip Tracker",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: "#111318",
 };
 
 export default function RootLayout({
