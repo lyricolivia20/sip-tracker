@@ -86,21 +86,22 @@ export default function WeeklyCalendar({ weekStart, entries, goals, onPrevWeek, 
             <button
               key={dateStr}
               onClick={() => onDayClick(dateStr)}
-              className={`flex flex-col items-center gap-1 p-2 rounded-2xl border card-hover transition-all relative ${colors.bg} ${colors.border} ${
+              className={`flex flex-col items-center justify-center gap-1 p-2 rounded-2xl border card-hover transition-all relative ${colors.bg} ${colors.border} ${
                 todayDay ? 'ring-2 ring-indigo-500/60' : ''
               }`}
+              style={{ minHeight: '80px' }}
             >
-              <span className="text-xs text-slate-500 font-medium">{DAY_LABELS[i]}</span>
-              <span className={`text-sm font-bold ${todayDay ? 'text-indigo-300' : 'text-slate-200'}`}>
+              <span className="text-[10px] text-slate-500 font-medium leading-none">{DAY_LABELS[i]}</span>
+              <span className={`text-base font-bold leading-none ${todayDay ? 'text-indigo-300' : 'text-slate-200'}`}>
                 {day.getDate()}
               </span>
               {total > 0 ? (
                 <>
-                  <span className={`text-xs font-semibold ${colors.text}`}>{total.toFixed(1)}</span>
+                  <span className={`text-xs font-semibold leading-none ${colors.text}`}>{total.toFixed(1)}</span>
                   <div className={`w-1.5 h-1.5 rounded-full ${colors.dot}`} />
                 </>
               ) : (
-                <div className="w-1.5 h-1.5 rounded-full bg-slate-700" />
+                <div className="w-1.5 h-1.5 rounded-full bg-slate-700/50 mt-1" />
               )}
             </button>
           );

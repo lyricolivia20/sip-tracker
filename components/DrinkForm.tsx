@@ -201,7 +201,7 @@ export default function DrinkForm({ presets, initialDate, entry, onSave, onCance
         </button>
         <button
           type="submit"
-          className="flex-1 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold glow-btn transition"
+          className="flex-1 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-semibold glow-btn transition"
         >
           {entry ? 'Update Drink' : 'Log Drink'}
         </button>

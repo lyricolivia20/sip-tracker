@@ -159,10 +159,10 @@ export default function DayModal({ dateStr, entries, presets, onClose, onAddEntr
 
         {/* Footer */}
         {view === 'list' && (
-          <div className="p-4 border-t border-slate-700/50">
+          <div className="p-4 pb-safe border-t border-slate-700/50">
             <button
               onClick={() => setView('add')}
-              className="w-full flex items-center justify-center gap-2 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl glow-btn transition"
+              className="w-full flex items-center justify-center gap-2 py-3.5 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-semibold rounded-xl glow-btn transition"
             >
               <Plus size={18} />
               Add Drink

@@ -132,7 +132,7 @@ export default function Home() {
       </header>
 
       {/* Main content */}
-      <main className="flex-1 max-w-2xl mx-auto w-full px-4 py-5 pb-28">
+      <main className="flex-1 max-w-2xl mx-auto w-full px-4 py-5 mb-nav">
         {activeTab === 'calendar' && (
           <div className="animate-fade-in">
             <WeeklyCalendar
@@ -177,7 +177,7 @@ export default function Home() {
       </main>
 
       {/* Bottom Nav */}
-      <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-800/80" style={{ backgroundColor: '#111318ee', backdropFilter: 'blur(12px)' }}>
+      <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-800/80 safe-bottom" style={{ backgroundColor: '#111318ee', backdropFilter: 'blur(12px)' }}>
         <div className="max-w-2xl mx-auto px-2">
           <div className="flex items-center">
             {TAB_CONFIG.map(tab => (
@@ -206,7 +206,8 @@ export default function Home() {
       {/* FAB - Add Drink */}
       <button
         onClick={() => setShowFabForm(true)}
-        className="fixed bottom-20 right-4 sm:right-6 z-50 w-14 h-14 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white flex items-center justify-center shadow-lg glow-btn animate-pulse-glow transition"
+        style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 5rem)' }}
+        className="fixed right-5 sm:right-8 z-50 w-16 h-16 rounded-2xl bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white flex items-center justify-center shadow-lg glow-btn animate-pulse-glow transition"
         aria-label="Add drink"
       >
         <Plus size={24} />

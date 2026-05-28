@@ -7,6 +7,7 @@
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html, body {
@@ -15,6 +16,12 @@ html, body {
   color: #e2e8f0;
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+  overflow-x: hidden;
+}
+
+input, textarea, select {
+  font-size: 16px !important; /* prevents iOS zoom on focus */
 }
 
 ::-webkit-scrollbar {
@@ -69,5 +76,16 @@ html, body {
 .card-hover:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+/* iOS safe area */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.pb-safe {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0.75rem);
+}
+.mb-nav {
+  margin-bottom: calc(env(safe-area-inset-bottom, 0px) + 5rem);
 }
 
