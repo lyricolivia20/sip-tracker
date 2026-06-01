@@ -15,22 +15,25 @@ interface Props {
 
 export default function DrinkForm({ presets, initialDate, entry, onSave, onCancel }: Props) {
   const [name, setName] = useState(entry?.name ?? '');
-  const [ounces, setOunces] = useState(entry?.ounces ?? 12);
-  const [abv, setAbv] = useState(entry?.abv ?? 5);
-  const [quantity, setQuantity] = useState(entry?.quantity ?? 1);
+  const [ounces, setOunces] = useState(String(entry?.ounces ?? 12));
+  const [abv, setAbv] = useState(String(entry?.abv ?? 5));
+  const [quantity, setQuantity] = useState(String(entry?.quantity ?? 1));
   const [notes, setNotes] = useState(entry?.notes ?? '');
   const [mood, setMood] = useState<MoodTag | ''>(entry?.mood as MoodTag ?? '');
   const [date, setDate] = useState(entry?.date ?? initialDate);
   const [selectedPreset, setSelectedPreset] = useState<string | null>(entry?.presetId ?? null);
   const [showCustom, setShowCustom] = useState(!entry?.presetId);
 
-  const standardDrinks = calcStandardDrinks(ounces, abv, quantity);
+  const ozNum  = parseFloat(ounces)  || 0;
+  const abvNum  = parseFloat(abv)     || 0;
+  const qtyNum  = parseInt(quantity)  || 1;
+  const standardDrinks = calcStandardDrinks(ozNum, abvNum, qtyNum);
 
   function applyPreset(preset: DrinkPreset) {
     setSelectedPreset(preset.id);
     setName(preset.name);
-    setOunces(preset.ounces);
-    setAbv(preset.abv);
+    setOunces(String(preset.ounces));
+    setAbv(String(preset.abv));
     setShowCustom(false);
   }
 
@@ -41,11 +44,11 @@ export default function DrinkForm({ presets, initialDate, entry, onSave, onCance
       date,
       presetId: selectedPreset,
       name: name || 'Custom Drink',
-      ounces,
-      abv,
-      quantity,
+      ounces: ozNum,
+      abv: abvNum,
+      quantity: qtyNum,
       notes,
-      standardDrinks: calcStandardDrinks(ounces, abv, quantity),
+      standardDrinks: calcStandardDrinks(ozNum, abvNum, qtyNum),
       mood: mood || undefined,
       createdAt: entry?.createdAt ?? new Date().toISOString(),
     };
@@ -110,7 +113,7 @@ export default function DrinkForm({ presets, initialDate, entry, onSave, onCance
           <input
             type="number"
             value={ounces}
-            onChange={e => setOunces(parseFloat(e.target.value) || 0)}
+            onChange={e => setOunces(e.target.value)}
             min={0.5}
             step={0.5}
             className="w-full rounded-xl px-3 py-3 text-slate-100 focus:outline-none transition text-center"
@@ -122,7 +125,7 @@ export default function DrinkForm({ presets, initialDate, entry, onSave, onCance
           <input
             type="number"
             value={abv}
-            onChange={e => setAbv(parseFloat(e.target.value) || 0)}
+            onChange={e => setAbv(e.target.value)}
             min={0}
             max={100}
             step={0.1}
@@ -135,7 +138,7 @@ export default function DrinkForm({ presets, initialDate, entry, onSave, onCance
           <input
             type="number"
             value={quantity}
-            onChange={e => setQuantity(parseInt(e.target.value) || 1)}
+            onChange={e => setQuantity(e.target.value)}
             min={1}
             max={20}
             className="w-full rounded-xl px-3 py-3 text-slate-100 focus:outline-none transition text-center"
