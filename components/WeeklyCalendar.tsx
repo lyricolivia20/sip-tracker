@@ -8,10 +8,19 @@ import {
   getHighestDay, formatShortDate
 } from '@/lib/calculations';
 
+const MOOD_COLORS: Record<number, string> = {
+  1: '#ef4444',
+  2: '#f97316',
+  3: '#eab308',
+  4: '#84cc16',
+  5: '#22c55e',
+};
+
 interface Props {
   weekStart: Date;
   entries: DrinkEntry[];
   goals: { maxStandardDrinks: number; maxDrinkingDays: number };
+  dayMoods: Record<string, number>;
   onPrevWeek: () => void;
   onNextWeek: () => void;
   onToday: () => void;
@@ -30,7 +39,7 @@ const DAY_STYLES: Record<DayColorKey, { bg: string; border: string; numColor: st
   'very-high':{ bg: 'rgba(239,68,68,0.08)',   border: 'rgba(239,68,68,0.22)',   numColor: '#f1f5f9', amtColor: '#f87171' },
 };
 
-export default function WeeklyCalendar({ weekStart, entries, goals, onPrevWeek, onNextWeek, onToday, onDayClick }: Props) {
+export default function WeeklyCalendar({ weekStart, entries, goals, dayMoods, onPrevWeek, onNextWeek, onToday, onDayClick }: Props) {
   const weekDays = getWeekDays(weekStart);
   const weekTotal = getWeekTotal(entries, weekDays);
   const drinkingDays = getDrinkingDaysCount(entries, weekDays);
@@ -83,14 +92,17 @@ export default function WeeklyCalendar({ weekStart, entries, goals, onPrevWeek, 
           const style = DAY_STYLES[colorKey];
           const todayDay = isToday(day);
 
+          const moodRating = dayMoods[dateStr];
+          const moodColor = moodRating ? MOOD_COLORS[moodRating] : null;
+
           return (
             <button
               key={dateStr}
               onClick={() => onDayClick(dateStr)}
-              className="flex flex-col items-center justify-center gap-1 rounded-[18px] card-hover animate-day"
+              className="flex flex-col items-center justify-center gap-1 rounded-[18px] card-hover animate-day relative overflow-hidden"
               style={{
                 minHeight: '90px',
-                padding: '12px 4px',
+                padding: '12px 4px 10px',
                 background: todayDay ? 'rgba(99,102,241,0.1)' : style.bg,
                 border: `1px solid ${todayDay ? 'rgba(99,102,241,0.45)' : style.border}`,
                 boxShadow: todayDay ? '0 0 20px rgba(99,102,241,0.2)' : 'none',
@@ -109,6 +121,13 @@ export default function WeeklyCalendar({ weekStart, entries, goals, onPrevWeek, 
                 </span>
               ) : (
                 <span className="text-[10px] leading-none" style={{ color: '#1e293b' }}>·</span>
+              )}
+              {/* Mood bar */}
+              {moodColor && (
+                <div
+                  className="absolute bottom-0 left-1 right-1 h-[3px] rounded-full"
+                  style={{ background: moodColor, opacity: 0.85 }}
+                />
               )}
             </button>
           );

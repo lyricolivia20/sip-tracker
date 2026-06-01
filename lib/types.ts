@@ -38,6 +38,7 @@ export interface AppData {
   presets: DrinkPreset[];
   goals: WeeklyGoal;
   weekNotes: Record<string, WeekNote>;
+  dayMoods: Record<string, number>; // date (YYYY-MM-DD) -> rating 1-5
 }
 
 export type MoodTag = 'happy' | 'social' | 'stressed' | 'bored' | 'celebratory' | 'anxious' | 'relaxed';

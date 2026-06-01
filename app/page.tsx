@@ -89,9 +89,13 @@ export default function Home() {
     updateData(prev => ({ ...prev, weekNotes: { ...prev.weekNotes, [note.weekKey]: note } }));
   }
 
+  function saveDayMood(date: string, rating: number) {
+    updateData(prev => ({ ...prev, dayMoods: { ...prev.dayMoods, [date]: rating } }));
+  }
+
   function clearAllData() {
     updateData(prev => {
-      const fresh: AppData = { entries: [], presets: prev.presets, goals: prev.goals, weekNotes: {} };
+      const fresh: AppData = { entries: [], presets: prev.presets, goals: prev.goals, weekNotes: {}, dayMoods: {} };
       return fresh;
     });
   }
@@ -176,6 +180,7 @@ export default function Home() {
               weekStart={weekStart}
               entries={data.entries}
               goals={data.goals}
+              dayMoods={data.dayMoods}
               onPrevWeek={goToPrevWeek}
               onNextWeek={goToNextWeek}
               onToday={goToToday}
@@ -267,10 +272,12 @@ export default function Home() {
           dateStr={dayModalDate}
           entries={data.entries}
           presets={data.presets}
+          dayMood={data.dayMoods[dayModalDate] ?? null}
           onClose={() => setDayModalDate(null)}
           onAddEntry={(e) => { addEntry(e); }}
           onEditEntry={(e) => { editEntry(e); }}
           onDeleteEntry={(id) => { deleteEntry(id); }}
+          onSaveMood={saveDayMood}
         />
       )}
 

@@ -22,6 +22,7 @@ export const DEFAULT_DATA: AppData = {
   presets: DEFAULT_PRESETS,
   goals: DEFAULT_GOALS,
   weekNotes: {},
+  dayMoods: {},
 };
 
 export function loadData(): AppData {
@@ -35,6 +36,7 @@ export function loadData(): AppData {
       presets: parsed.presets ?? [...DEFAULT_PRESETS],
       goals: parsed.goals ?? { ...DEFAULT_GOALS },
       weekNotes: parsed.weekNotes ?? {},
+      dayMoods: (parsed as AppData).dayMoods ?? {},
     };
   } catch {
     return { ...DEFAULT_DATA, presets: [...DEFAULT_PRESETS] };

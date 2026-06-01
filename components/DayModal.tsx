@@ -6,20 +6,38 @@ import { DrinkEntry, DrinkPreset, MOOD_TAGS } from '@/lib/types';
 import { getDayTotal, parseDate } from '@/lib/calculations';
 import DrinkForm from './DrinkForm';
 
+const MOOD_FACES = [
+  { rating: 1, emoji: '😢', label: 'Rough',   color: '#ef4444', bg: 'rgba(239,68,68,0.15)',   border: 'rgba(239,68,68,0.5)'   },
+  { rating: 2, emoji: '😟', label: 'Meh',     color: '#f97316', bg: 'rgba(249,115,22,0.15)',  border: 'rgba(249,115,22,0.5)'  },
+  { rating: 3, emoji: '😐', label: 'Okay',    color: '#eab308', bg: 'rgba(234,179,8,0.15)',   border: 'rgba(234,179,8,0.5)'   },
+  { rating: 4, emoji: '🙂', label: 'Good',    color: '#84cc16', bg: 'rgba(132,204,22,0.15)',  border: 'rgba(132,204,22,0.5)'  },
+  { rating: 5, emoji: '😄', label: 'Great',   color: '#22c55e', bg: 'rgba(34,197,94,0.15)',   border: 'rgba(34,197,94,0.5)'   },
+];
+
 interface Props {
   dateStr: string;
   entries: DrinkEntry[];
   presets: DrinkPreset[];
+  dayMood: number | null;
   onClose: () => void;
   onAddEntry: (entry: DrinkEntry) => void;
   onEditEntry: (entry: DrinkEntry) => void;
   onDeleteEntry: (id: string) => void;
+  onSaveMood: (date: string, rating: number) => void;
 }
 
-export default function DayModal({ dateStr, entries, presets, onClose, onAddEntry, onEditEntry, onDeleteEntry }: Props) {
+export default function DayModal({ dateStr, entries, presets, dayMood, onClose, onAddEntry, onEditEntry, onDeleteEntry, onSaveMood }: Props) {
   const [view, setView] = useState<'list' | 'add' | 'edit'>('list');
   const [editingEntry, setEditingEntry] = useState<DrinkEntry | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
+  const [selectedMood, setSelectedMood] = useState<number | null>(dayMood);
+
+  function handleMoodSelect(rating: number) {
+    const next = selectedMood === rating ? null : rating;
+    setSelectedMood(next);
+    if (next !== null) onSaveMood(dateStr, next);
+    else onSaveMood(dateStr, 0);
+  }
 
   const dayEntries = entries.filter(e => e.date === dateStr);
   const dayTotal = getDayTotal(entries, dateStr);
@@ -90,9 +108,36 @@ export default function DayModal({ dateStr, entries, presets, onClose, onAddEntr
         {/* Content */}
         <div className="overflow-y-auto flex-1 p-5">
           {view === 'list' ? (
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-4">
+
+              {/* Day Mood Picker */}
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-widest mb-3" style={{ color: '#334155' }}>How was your day?</p>
+                <div className="grid grid-cols-5 gap-2">
+                  {MOOD_FACES.map(face => {
+                    const isSelected = selectedMood === face.rating;
+                    return (
+                      <button
+                        key={face.rating}
+                        type="button"
+                        onClick={() => handleMoodSelect(face.rating)}
+                        className="flex flex-col items-center gap-1.5 py-3 rounded-2xl transition-all active:scale-90 card-hover"
+                        style={{
+                          background: isSelected ? face.bg : 'rgba(255,255,255,0.03)',
+                          border: `1px solid ${isSelected ? face.border : 'rgba(255,255,255,0.06)'}`,
+                          boxShadow: isSelected ? `0 0 16px ${face.bg}` : 'none',
+                        }}
+                      >
+                        <span className={`text-2xl transition-all ${isSelected ? 'scale-125' : 'opacity-60'}`}>{face.emoji}</span>
+                        <span className="text-[9px] font-bold uppercase tracking-wider" style={{ color: isSelected ? face.color : '#334155' }}>{face.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
               {dayEntries.length === 0 ? (
-                <div className="text-center py-12">
+                <div className="text-center py-8">
                   <p className="text-5xl mb-4 opacity-30">○</p>
                   <p className="text-sm font-medium" style={{ color: '#475569' }}>Nothing logged</p>
                   <p className="text-xs mt-1" style={{ color: '#334155' }}>Tap below to add a drink.</p>
