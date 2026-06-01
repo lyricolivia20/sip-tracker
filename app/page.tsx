@@ -50,7 +50,7 @@ export default function Home() {
           className="w-16 h-16 rounded-3xl flex items-center justify-center text-3xl animate-bounce-in"
           style={{ background: 'linear-gradient(135deg, rgba(99,102,241,0.25), rgba(45,212,191,0.15))', border: '1px solid rgba(99,102,241,0.35)' }}
         >
-          🫗
+          🍸
         </div>
         <p className="text-slate-600 text-sm font-semibold animate-shimmer">Loading…</p>
       </div>
@@ -152,7 +152,7 @@ export default function Home() {
                 border: '1px solid rgba(99,102,241,0.4)',
               }}
             >
-              🫗
+              🍸
             </div>
             <div>
               <h1
@@ -294,7 +294,7 @@ export default function Home() {
               style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}
             >
               <div className="flex items-center gap-3">
-                <span className="text-xl">🫗</span>
+                <span className="text-xl">🍸</span>
                 <h2 className="font-black text-lg text-white">Log a Drink</h2>
               </div>
               <button

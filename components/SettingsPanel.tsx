@@ -34,7 +34,7 @@ export default function SettingsPanel({ goals, onUpdate, onClearAllData }: Props
   return (
     <div className="flex flex-col gap-5">
       <div>
-        <h2 className="text-base font-semibold text-slate-100">Weekly Goals</h2>
+        <h2 className="text-base font-semibold text-slate-100">Weekly Limits</h2>
         <p className="text-xs text-slate-400 mt-0.5">Set your personal limits for the week</p>
       </div>
 
@@ -127,7 +127,7 @@ export default function SettingsPanel({ goals, onUpdate, onClearAllData }: Props
         className="w-full flex items-center justify-center gap-2 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl glow-btn transition"
       >
         <Save size={16} />
-        {saved ? '✓ Goals Saved!' : 'Save Goals'}
+        {saved ? '✓ Limits Saved!' : 'Save Limits'}
       </button>
 
       {/* About Section */}

@@ -91,7 +91,7 @@ export default function Dashboard({ weekStart, entries, goals, weekNote, onSaveN
       {/* Top Stats */}
       <div className="grid grid-cols-2 gap-3">
         <StatCard label="Weekly Total" value={weekTotal.toFixed(1)} sub="standard drinks" color={weekTotal > goals.maxStandardDrinks ? 'red' : 'indigo'} />
-        <StatCard label="Drinking Days" value={drinkingDays.toString()} sub={`of ${goals.maxDrinkingDays} goal`} color={drinkingDays > goals.maxDrinkingDays ? 'amber' : 'emerald'} />
+        <StatCard label="Drinking Days" value={drinkingDays.toString()} sub={`of ${goals.maxDrinkingDays} limit`} color={drinkingDays > goals.maxDrinkingDays ? 'amber' : 'emerald'} />
         <StatCard label="Avg Per Session" value={avgPerDrinkingDay.toFixed(1)} sub="std drinks/day" color="slate" />
         <StatCard
           label="Heaviest Day"
@@ -125,7 +125,7 @@ export default function Dashboard({ weekStart, entries, goals, weekNote, onSaveN
 
       {/* Goals Progress */}
       <div className="bg-slate-800/60 border border-slate-700/50 rounded-2xl p-4">
-        <p className="text-xs text-slate-400 uppercase tracking-wider mb-3 font-medium">Weekly Goal Progress</p>
+        <p className="text-xs text-slate-400 uppercase tracking-wider mb-3 font-medium">Weekly Limit Progress</p>
         <ProgressRow
           label="Standard Drinks"
           value={weekTotal}
