@@ -59,7 +59,10 @@ export default function DayModal({ dateStr, entries, presets, onClose, onAddEntr
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in" onClick={onClose} />
 
       {/* Modal */}
-      <div className="relative w-full sm:max-w-lg rounded-t-3xl sm:rounded-2xl shadow-2xl animate-slide-modal max-h-[90vh] flex flex-col" style={{ background: '#13161f', border: '1px solid rgba(255,255,255,0.07)' }}>
+      <div
+        className="relative w-full sm:max-w-lg rounded-t-3xl sm:rounded-3xl shadow-2xl animate-slide-modal max-h-[92vh] flex flex-col glass-modal"
+        style={{ background: 'rgba(14,16,24,0.9)', border: '1px solid rgba(255,255,255,0.1)' }}
+      >
         {/* Header */}
         <div className="flex items-center justify-between px-5 pt-5 pb-4" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
           <div className="flex items-center gap-3">
@@ -69,7 +72,7 @@ export default function DayModal({ dateStr, entries, presets, onClose, onAddEntr
               </button>
             )}
             <div>
-              <h2 className="font-semibold text-slate-100">
+              <h2 className="font-black text-lg text-white">
                 {view === 'list' ? dayLabel : view === 'edit' ? 'Edit Drink' : 'Log a Drink'}
               </h2>
               {view === 'list' && (
@@ -79,7 +82,7 @@ export default function DayModal({ dateStr, entries, presets, onClose, onAddEntr
               )}
             </div>
           </div>
-          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full text-slate-500 hover:text-slate-200 transition" style={{ background: 'rgba(255,255,255,0.04)' }}>
+          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full text-slate-500 hover:text-white transition" style={{ background: 'rgba(255,255,255,0.06)' }}>
             <X size={18} />
           </button>
         </div>

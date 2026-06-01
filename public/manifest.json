@@ -1,0 +1,10 @@
+{
+  "name": "Log — Drink Tracker",
+  "short_name": "Log",
+  "description": "Track your weekly alcohol intake with clarity.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c0e12",
+  "theme_color": "#0c0e12",
+  "orientation": "portrait-primary"
+}

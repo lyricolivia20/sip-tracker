@@ -45,8 +45,14 @@ export default function Home() {
 
   if (!data) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-slate-400 text-sm animate-pulse">Loading...</div>
+      <div className="min-h-[100svh] flex flex-col items-center justify-center gap-4" style={{ backgroundColor: '#0c0e12' }}>
+        <div
+          className="w-16 h-16 rounded-3xl flex items-center justify-center text-3xl animate-bounce-in"
+          style={{ background: 'linear-gradient(135deg, rgba(99,102,241,0.25), rgba(45,212,191,0.15))', border: '1px solid rgba(99,102,241,0.35)' }}
+        >
+          🫗
+        </div>
+        <p className="text-slate-600 text-sm font-semibold animate-shimmer">Loading…</p>
       </div>
     );
   }
@@ -113,22 +119,57 @@ export default function Home() {
   const todayStr = formatDate(new Date());
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#0c0e12' }}>
+    <div className="min-h-[100svh] flex flex-col" style={{ backgroundColor: '#0c0e12' }}>
+
+      {/* Ambient background orbs */}
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <div
+          className="absolute -top-24 -right-20 w-80 h-80 rounded-full animate-float"
+          style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.22) 0%, transparent 68%)', filter: 'blur(48px)' }}
+        />
+        <div
+          className="absolute top-[38%] -left-28 w-72 h-72 rounded-full animate-float-slow"
+          style={{ background: 'radial-gradient(circle, rgba(45,212,191,0.14) 0%, transparent 68%)', filter: 'blur(48px)', animationDelay: '2.5s' }}
+        />
+        <div
+          className="absolute bottom-48 right-4 w-56 h-56 rounded-full animate-float"
+          style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 68%)', filter: 'blur(40px)', animationDelay: '5s' }}
+        />
+      </div>
+
       {/* Header */}
-      <header className="sticky top-0 z-40" style={{ backgroundColor: '#0c0e12cc', backdropFilter: 'blur(24px)' }}>
-        <div className="max-w-2xl mx-auto px-5 pt-5 pb-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
-            <span className="text-[13px] font-semibold tracking-tight text-slate-200">log</span>
+      <header className="relative z-10 px-5 pt-10 pb-4">
+        <div className="max-w-2xl mx-auto">
+          <div className="flex items-center gap-4">
+            <div
+              className="w-16 h-16 rounded-3xl flex items-center justify-center text-[28px] glass-card animate-bounce-in animate-logo-pulse shrink-0"
+              style={{
+                background: 'linear-gradient(135deg, rgba(99,102,241,0.28) 0%, rgba(45,212,191,0.18) 100%)',
+                border: '1px solid rgba(99,102,241,0.4)',
+              }}
+            >
+              🫗
+            </div>
+            <div>
+              <h1
+                className="text-5xl font-black leading-none tracking-tight gradient-text animate-bounce-in"
+                style={{ animationDelay: '0.06s' }}
+              >
+                Log
+              </h1>
+              <p
+                className="text-sm font-semibold mt-1 animate-bounce-in"
+                style={{ color: '#475569', animationDelay: '0.12s' }}
+              >
+                {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+              </p>
+            </div>
           </div>
-          <span className="text-[11px] text-slate-600 tabular-nums">
-            {new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
-          </span>
         </div>
       </header>
 
       {/* Main content */}
-      <main className="flex-1 max-w-2xl mx-auto w-full px-4 py-5 mb-nav">
+      <main className="relative z-10 flex-1 max-w-2xl mx-auto w-full px-4 pb-5 mb-nav">
         {activeTab === 'calendar' && (
           <div className="animate-fade-in">
             <WeeklyCalendar
@@ -173,25 +214,36 @@ export default function Home() {
       </main>
 
       {/* Bottom Nav */}
-      <nav className="fixed bottom-0 left-0 right-0 z-40 safe-bottom" style={{ backgroundColor: '#0c0e12e8', backdropFilter: 'blur(24px)', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-        <div className="max-w-2xl mx-auto px-4">
+      <nav
+        className="fixed bottom-0 left-0 right-0 z-40 safe-bottom glass-nav"
+        style={{ background: 'rgba(12,14,18,0.75)', borderTop: '1px solid rgba(255,255,255,0.07)' }}
+      >
+        <div className="max-w-2xl mx-auto px-2">
           <div className="flex items-center">
-            {TAB_CONFIG.map(tab => (
+            {TAB_CONFIG.map((tab, i) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`relative flex-1 flex flex-col items-center gap-1 py-3.5 transition-all ${
-                  activeTab === tab.id
-                    ? 'text-indigo-400'
-                    : 'text-slate-600 hover:text-slate-400'
+                className={`relative flex-1 flex flex-col items-center gap-1.5 py-3 transition-all animate-tab-in ${
+                  activeTab === tab.id ? 'text-indigo-400' : 'text-slate-600'
                 }`}
+                style={{ animationDelay: `${i * 0.04}s` }}
               >
-                <span className={`transition-all duration-200 ${activeTab === tab.id ? 'scale-110' : ''}`}>
+                <span
+                  className={`transition-all duration-200 ${
+                    activeTab === tab.id ? 'scale-115 drop-shadow-[0_0_8px_rgba(99,102,241,0.7)]' : ''
+                  }`}
+                >
                   {tab.icon}
                 </span>
-                <span className={`text-[10px] font-medium transition-all ${activeTab === tab.id ? 'opacity-100' : 'opacity-60'}`}>{tab.label}</span>
+                <span className={`text-[10px] font-bold transition-all ${activeTab === tab.id ? 'opacity-100' : 'opacity-40'}`}>
+                  {tab.label}
+                </span>
                 {activeTab === tab.id && (
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-6 h-[2px] bg-indigo-500 rounded-full" />
+                  <div
+                    className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-[2px] rounded-full animate-bounce-in"
+                    style={{ background: 'linear-gradient(90deg, #818cf8, #2dd4bf)' }}
+                  />
                 )}
               </button>
             ))}
@@ -202,11 +254,11 @@ export default function Home() {
       {/* FAB - Add Drink */}
       <button
         onClick={() => setShowFabForm(true)}
-        style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 5.5rem)' }}
-        className="fixed right-5 sm:right-8 z-50 w-14 h-14 rounded-2xl bg-indigo-600 text-white flex items-center justify-center glow-btn animate-pulse-glow"
+        style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 6rem)', background: 'linear-gradient(135deg, #6366f1, #4f46e5)' }}
+        className="fixed right-5 sm:right-8 z-50 w-14 h-14 rounded-2xl text-white flex items-center justify-center glow-btn animate-pulse-glow"
         aria-label="Add drink"
       >
-        <Plus size={24} />
+        <Plus size={22} />
       </button>
 
       {/* Day Modal */}
@@ -225,12 +277,25 @@ export default function Home() {
       {/* FAB Add Form Modal */}
       {showFabForm && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center">
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in" onClick={() => setShowFabForm(false)} />
-          <div className="relative w-full sm:max-w-lg bg-[#1a1d2e] border border-slate-700/60 rounded-t-3xl sm:rounded-2xl shadow-2xl animate-slide-up max-h-[90vh] flex flex-col">
-            <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-slate-700/50">
-              <h2 className="font-semibold text-slate-100">Log a Drink</h2>
-              <button onClick={() => setShowFabForm(false)} className="text-slate-400 hover:text-slate-200 transition p-1">
-                <span className="text-lg">✕</span>
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-md animate-fade-in" onClick={() => setShowFabForm(false)} />
+          <div
+            className="relative w-full sm:max-w-lg rounded-t-3xl sm:rounded-3xl shadow-2xl animate-slide-modal max-h-[92vh] flex flex-col glass-modal"
+            style={{ background: 'rgba(16,18,28,0.88)', border: '1px solid rgba(255,255,255,0.1)' }}
+          >
+            <div
+              className="flex items-center justify-between px-6 pt-6 pb-4"
+              style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-xl">🫗</span>
+                <h2 className="font-black text-lg text-white">Log a Drink</h2>
+              </div>
+              <button
+                onClick={() => setShowFabForm(false)}
+                className="w-8 h-8 flex items-center justify-center rounded-full text-slate-500 hover:text-white transition"
+                style={{ background: 'rgba(255,255,255,0.06)' }}
+              >
+                ✕
               </button>
             </div>
             <div className="overflow-y-auto flex-1 p-5">

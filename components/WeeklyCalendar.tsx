@@ -119,46 +119,52 @@ export default function WeeklyCalendar({ weekStart, entries, goals, onPrevWeek, 
       <div className="grid grid-cols-3 gap-2.5">
 
         {/* Weekly Total */}
-        <div className="rounded-2xl p-4 flex flex-col gap-1 animate-slide-up" style={{ background: '#12151c', border: '1px solid rgba(255,255,255,0.06)', animationDelay: '0.05s' }}>
-          <p className="text-[9px] font-semibold uppercase tracking-widest" style={{ color: '#334155' }}>Week</p>
-          <p className="text-[22px] font-bold tracking-tight leading-none" style={{ color: isOverGoal ? '#f87171' : '#818cf8' }}>
+        <div
+          className="rounded-2xl p-4 flex flex-col gap-1 animate-slide-up glass-card"
+          style={{ background: 'rgba(99,102,241,0.07)', border: '1px solid rgba(99,102,241,0.18)', animationDelay: '0.05s' }}
+        >
+          <p className="text-[9px] font-black uppercase tracking-widest" style={{ color: '#4338ca' }}>Week</p>
+          <p className="text-[24px] font-black tracking-tight leading-none" style={{ color: isOverGoal ? '#f87171' : '#a5b4fc' }}>
             {weekTotal.toFixed(1)}
           </p>
-          <p className="text-[9px]" style={{ color: '#1e293b' }}>of {goals.maxStandardDrinks} std</p>
-          <div className="mt-1 h-[2px] rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.04)' }}>
+          <p className="text-[9px] font-semibold" style={{ color: '#312e81' }}>of {goals.maxStandardDrinks} std</p>
+          <div className="mt-2 h-[3px] rounded-full overflow-hidden" style={{ background: 'rgba(99,102,241,0.15)' }}>
             <div
               className="h-full rounded-full transition-all duration-700"
-              style={{
-                width: `${progressPct}%`,
-                background: isOverGoal ? '#ef4444' : progressPct > 75 ? '#f59e0b' : 'rgba(99,102,241,0.7)',
-              }}
+              style={{ width: `${progressPct}%`, background: isOverGoal ? '#f87171' : progressPct > 75 ? '#fbbf24' : 'linear-gradient(90deg, #818cf8, #6366f1)' }}
             />
           </div>
         </div>
 
         {/* Drinking Days */}
-        <div className="rounded-2xl p-4 flex flex-col gap-1 animate-slide-up" style={{ background: '#12151c', border: '1px solid rgba(255,255,255,0.06)', animationDelay: '0.08s' }}>
-          <p className="text-[9px] font-semibold uppercase tracking-widest" style={{ color: '#334155' }}>Days</p>
-          <p className="text-[22px] font-bold tracking-tight leading-none" style={{ color: drinkingDays > goals.maxDrinkingDays ? '#f59e0b' : '#2dd4bf' }}>
+        <div
+          className="rounded-2xl p-4 flex flex-col gap-1 animate-slide-up glass-card"
+          style={{ background: 'rgba(45,212,191,0.06)', border: '1px solid rgba(45,212,191,0.18)', animationDelay: '0.08s' }}
+        >
+          <p className="text-[9px] font-black uppercase tracking-widest" style={{ color: '#0f766e' }}>Days</p>
+          <p className="text-[24px] font-black tracking-tight leading-none" style={{ color: drinkingDays > goals.maxDrinkingDays ? '#fbbf24' : '#34d399' }}>
             {drinkingDays}
           </p>
-          <p className="text-[9px]" style={{ color: '#1e293b' }}>of {goals.maxDrinkingDays}</p>
+          <p className="text-[9px] font-semibold" style={{ color: '#134e4a' }}>of {goals.maxDrinkingDays}</p>
         </div>
 
         {/* Peak Day */}
-        <div className="rounded-2xl p-4 flex flex-col gap-1 animate-slide-up" style={{ background: '#12151c', border: '1px solid rgba(255,255,255,0.06)', animationDelay: '0.11s' }}>
-          <p className="text-[9px] font-semibold uppercase tracking-widest" style={{ color: '#334155' }}>Peak</p>
+        <div
+          className="rounded-2xl p-4 flex flex-col gap-1 animate-slide-up glass-card"
+          style={{ background: 'rgba(251,146,60,0.06)', border: '1px solid rgba(251,146,60,0.18)', animationDelay: '0.11s' }}
+        >
+          <p className="text-[9px] font-black uppercase tracking-widest" style={{ color: '#92400e' }}>Peak</p>
           {highestDay ? (
             <>
-              <p className="text-[22px] font-bold tracking-tight leading-none" style={{ color: '#fb923c' }}>
+              <p className="text-[24px] font-black tracking-tight leading-none" style={{ color: '#fb923c' }}>
                 {highestDay.total.toFixed(1)}
               </p>
-              <p className="text-[9px]" style={{ color: '#1e293b' }}>{formatShortDate(new Date(highestDay.date + 'T12:00'))}</p>
+              <p className="text-[9px] font-semibold" style={{ color: '#78350f' }}>{formatShortDate(new Date(highestDay.date + 'T12:00'))}</p>
             </>
           ) : (
             <>
-              <p className="text-[22px] font-bold tracking-tight leading-none" style={{ color: '#1e293b' }}>—</p>
-              <p className="text-[9px]" style={{ color: '#1e293b' }}>none yet</p>
+              <p className="text-[24px] font-black tracking-tight leading-none" style={{ color: '#1e293b' }}>—</p>
+              <p className="text-[9px] font-semibold" style={{ color: '#1e293b' }}>none yet</p>
             </>
           )}
         </div>
